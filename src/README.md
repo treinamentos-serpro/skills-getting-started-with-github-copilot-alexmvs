@@ -12,13 +12,13 @@ Uma aplicação FastAPI super simples que permite que estudantes visualizem e se
 1. Instale as dependências:
 
    ```
-   pip install fastapi uvicorn
+   pip install -r requirements.txt
    ```
 
 2. Execute a aplicação:
 
    ```
-   python app.py
+   uvicorn src.app:app --reload
    ```
 
 3. Abra seu navegador e acesse:
@@ -27,10 +27,10 @@ Uma aplicação FastAPI super simples que permite que estudantes visualizem e se
 
 ## Endpoints da API
 
-| Método | Endpoint                                                          | Descrição                                                                   |
-| ------ | ----------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| GET    | `/activities`                                                     | Obtém todas as atividades com seus detalhes e contagem atual de participantes |
-| POST   | `/activities/{activity_name}/signup?email=student@mergington.edu` | Inscreve-se em uma atividade                                                |
+| Método | Endpoint                            | Descrição                                              |
+| ------ | ----------------------------------- | ------------------------------------------------------ |
+| GET    | `/activities`                       | Obtém atividades, emails inscritos e nomes disponíveis |
+| POST   | `/activities/{activity_name}/signup` | Recebe `email` e `name` como parâmetros de consulta     |
 
 ## Modelo de Dados
 
@@ -42,9 +42,8 @@ A aplicação usa um modelo de dados simples com identificadores significativos:
    - Horário
    - Número máximo de participantes permitidos
    - Lista de emails dos estudantes inscritos
+   - Mapa `participant_names` que associa cada email ao nome informado na inscrição
 
-2. **Students** - Usa email como identificador:
-   - Nome
-   - Série/Ano escolar
+Participantes já existentes sem nome associado continuam identificados pelo email na interface.
 
 Todos os dados são armazenados em memória, o que significa que os dados serão resetados quando o servidor reiniciar.

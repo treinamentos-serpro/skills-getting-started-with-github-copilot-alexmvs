@@ -76,21 +76,24 @@ section h3 {
 
 .activity-participants {
   margin-top: 16px;
-  padding-top: 12px;
-  border-top: 1px solid #ddd;
+  padding: 12px 14px;
+  border-top: 1px solid #d8e4df;
+  border-left: 3px solid #21866a;
+  border-radius: 0 4px 4px 0;
+  background-color: #f0f7f4;
 }
 
 .activity-participants h5 {
   margin-bottom: 8px;
-  color: #1a237e;
+  color: #205747;
   font-size: 0.95rem;
 }
 
 .participant-list {
   display: grid;
-  gap: 4px;
+  gap: 6px;
   padding-left: 20px;
-  color: #444;
+  color: #374a45;
 }
 
 .participant-list li {
@@ -98,7 +101,13 @@ section h3 {
 }
 
 .participant-list li::marker {
-  color: #0066cc;
+  color: #c26a3e;
+}
+
+.participant-empty {
+  color: #66756e;
+  font-size: 0.9rem;
+  font-style: italic;
 }
 
 .form-group {

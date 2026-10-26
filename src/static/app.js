@@ -27,16 +27,18 @@ document.addEventListener("DOMContentLoaded", () => {
           <p><strong>Schedule:</strong> ${details.schedule}</p>
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
           <div class="activity-participants">
-            <h5>Participants (${details.participants.length})</h5>
-            <ul class="participant-list"></ul>
+            <h5>Participantes (${details.participants.length})</h5>
+            ${details.participants.length
+              ? '<ul class="participant-list"></ul>'
+              : '<p class="participant-empty">Ainda não há participantes inscritos.</p>'}
           </div>
         `;
 
         const participantList = activityCard.querySelector(".participant-list");
         details.participants.forEach((email) => {
           const participant = document.createElement("li");
-          participant.textContent = email;
-          participantList.appendChild(participant);
+          participant.textContent = details.participant_names?.[email] || email;
+          participantList?.appendChild(participant);
         });
 
         activitiesList.appendChild(activityCard);
@@ -57,12 +59,13 @@ document.addEventListener("DOMContentLoaded", () => {
   signupForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
+    const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value;
     const activity = document.getElementById("activity").value;
 
     try {
       const response = await fetch(
-        `/activities/${encodeURIComponent(activity)}/signup?email=${encodeURIComponent(email)}`,
+        `/activities/${encodeURIComponent(activity)}/signup?${new URLSearchParams({ email, name })}`,
         {
           method: "POST",
         }
